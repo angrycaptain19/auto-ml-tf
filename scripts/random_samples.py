@@ -7,29 +7,29 @@ from change_xml_file import change_file
 
 def load_files(folder, sample_num_train):
   files_jpg = list()
-  files_xml = list()
+  files_xml = []
   files_name = os.listdir('./'+str(folder))
-  
+
   for file_name in files_name:
     if file_name[-3:] == 'jpg':
       files_jpg.append(file_name)
     else:
       files_xml.append(file_name)
-  
+
   load_files_random(folder, sample_num_train, len(files_jpg), [files_jpg, files_xml])
 
 
 def load_files_random(folder, sample_num_train, indexs, files):
   num_samples_train = round((indexs * sample_num_train)/100)
 
-  new_list = random.sample(range(0, indexs), num_samples_train)
+  new_list = random.sample(range(indexs), num_samples_train)
   sambles_test, sambles_train = consult_itens(new_list, indexs, files)
   changing_directories(folder, sambles_train, sambles_test)
 
 
 def consult_itens(new_list, indexs, files):
   sample_test = list()
-  sample_train = list()
+  sample_train = []
   for index in range(indexs):
     if (index not in new_list):
       sample_test.append(files[0][index])
@@ -38,7 +38,7 @@ def consult_itens(new_list, indexs, files):
   for i in new_list:
     sample_train.append(files[0][i])
     sample_train.append(files[1][i]) 
-  
+
   return sample_test, sample_train
 
 
